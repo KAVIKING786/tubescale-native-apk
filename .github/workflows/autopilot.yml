@@ -1,0 +1,32 @@
+name: TubeScale Autonomous Engine
+
+on:
+  workflow_dispatch:
+  schedule:
+    # தினமும் குறிப்பிட்ட இடைவெளியில் தானாக ரன் ஆகும்
+    - cron: '0 4 * * *'
+
+jobs:
+  auto_slice_and_post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install FFmpeg & Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          pip install yt-dlp requests
+
+      - name: Run Cloud Engine
+        run: |
+          echo "TubeScale Cloud Engine is Active!"
+          echo "Scanning channel for highlights and auto-slicing to 9:16..."
+          # இந்த இடத்தில் உங்கள் கிளவுட் கட்டிங் டாஸ்க் எக்ஸிகியூட் ஆகும்
